@@ -1,5 +1,3 @@
-import requests
-import json
 from search_images import fetch_image_url
 from data_fetcher import fetch_data
 
@@ -33,8 +31,8 @@ def generate_string_with_animals_data(animals_data):
 
         if all(var is not None for var in variables):
             output.append(f'<li class="cards__item">')
-            output.append(f'<div class="card__content">')  # added content class
-            output.append(f'  <div class="card__info">')    # added info class
+            output.append(f'<div class="card__content">')
+            output.append(f'  <div class="card__info">')
             output.append(f'    <div class="card__title">{name}</div>')
             output.append(f'    <p class="card__text">')
             output.append(f'      <strong>Diet:</strong> {diet}<br/>')
@@ -50,46 +48,6 @@ def generate_string_with_animals_data(animals_data):
     return ''.join(output)
 
 
-def insert_css_info(html_data: str):
-    """Replaces the closing head tag with additional css info"""
-    html_data_new = html_data.replace(
-        """</style>
-    </head>""",
-
-"""
-    .card__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.card__info {
-  flex: 2;
-}
-
-.card__image img {
-  max-width: 150px;
-  height: auto;
-  border-radius: 8px;
-}
-h2 {
-  text-align: center
-
-}
-""" +
-"""</style>
-    </head>""")
-
-    return html_data_new
-
-
-def save_html(html_template_new):
-    """Uses new html template and generates html file"""
-    html_template_new = insert_css_info(html_template_new)
-    save_file(html_template_new, "animals.html")
-
-
 def main():
     html_template = load_html("animals_template.html")
     animal_name, animals_data = fetch_data()
@@ -97,12 +55,12 @@ def main():
     if len(animals_data) == 0:
         not_exist_string = f"<h2>The animal '{animal_name}' doesn't exist.</h2>"
         html_template_new = html_template.replace("__REPLACE_ANIMALS_INFO__", not_exist_string)
-        save_html(html_template_new)
+        save_file(html_template_new, "animals.html")
 
     else:
         animals_data_string = generate_string_with_animals_data(animals_data)
         html_template_new = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_data_string)
-        save_html(html_template_new)
+        save_file(html_template_new, "animals.html")
 
     print(f"{animal_name}-Website was successfully generated to the file animals.html.")
 
