@@ -1,6 +1,7 @@
 import requests
 import json
 from search_images import fetch_image_url
+from data_fetcher import fetch_data
 
 
 def load_html(file_name):
@@ -13,9 +14,6 @@ def save_file(data: str, file_name: str):
     """Saves the animal html data to a html file"""
     with open(file_name, "w") as f:
         f.write(data)
-
-
-
 
 
 def generate_string_with_animals_data(animals_data):
@@ -86,21 +84,25 @@ h2 {
     return html_data_new
 
 
+def save_html(html_template_new):
+    """Uses new html template and generates html file"""
+    html_template_new = insert_css_info(html_template_new)
+    save_file(html_template_new, "animals.html")
+
+
 def main():
     html_template = load_html("animals_template.html")
-
+    animal_name, animals_data = fetch_data()
 
     if len(animals_data) == 0:
         not_exist_string = f"<h2>The animal '{animal_name}' doesn't exist.</h2>"
         html_template_new = html_template.replace("__REPLACE_ANIMALS_INFO__", not_exist_string)
-        html_template_new = insert_css_info(html_template_new)
-        save_file(html_template_new, "animals.html")
+        save_html(html_template_new)
+
     else:
-        animals_data = raw.json()
         animals_data_string = generate_string_with_animals_data(animals_data)
         html_template_new = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_data_string)
-        html_template_new = insert_css_info(html_template_new)
-        save_file(html_template_new, "animals.html")
+        save_html(html_template_new)
 
     print(f"{animal_name}-Website was successfully generated to the file animals.html.")
 
