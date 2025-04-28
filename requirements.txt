@@ -1,0 +1,7 @@
+requests
+random
+duckduckgo_search
+json
+os
+dotenv
+
