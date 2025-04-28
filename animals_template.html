@@ -14,9 +14,13 @@
         }
 
         h1 {
-            text-align: center;
-            font-size: 40pt;
-            font-weight: normal;
+          text-align: center;
+          font-size: 40pt;
+          font-weight: normal;
+        }
+
+        h2 {
+          text-align: center;
         }
 
         body {
@@ -49,7 +53,7 @@
         }
 
         .card__title {
-          color: @gray-dark;
+          color: #696969; /* Replaced @gray-dark */
           font-size: 1.25rem;
           font-weight: bold;
           letter-spacing: 2px;
@@ -62,6 +66,24 @@
           line-height: 2;
           margin-bottom: 1.25rem;
         }
+
+        .card__content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+        }
+
+        .card__info {
+          flex: 2;
+        }
+
+        .card__image img {
+          max-width: 150px;
+          height: auto;
+          border-radius: 8px;
+        }
+
         </style>
     </head>
     <body>
