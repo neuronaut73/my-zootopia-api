@@ -1,5 +1,4 @@
 requests
 duckduckgo_search
-os
 dotenv
 
