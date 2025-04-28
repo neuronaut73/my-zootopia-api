@@ -1,8 +1,11 @@
 import json
 import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-X_API_KEY = "gmEqTVp4GLaYcXUIJLblRw==SQdua3MhJo7y3LkG"
+X_API_KEY = os.getenv('X_API_KEY')
 REQUEST_ANIMALS = f"https://api.api-ninjas.com/v1/animals?name=<ANIMAL_NAME>&X-Api-Key={X_API_KEY}"
 FILENAME = "animals_data.json"
 
